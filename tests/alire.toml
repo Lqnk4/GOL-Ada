@@ -1,0 +1,13 @@
+name = "gol_tests"
+description = "Tests for the built-in Alire test runner"
+version = "0.0.0-test"
+
+[[depends-on]]
+gol = "*"
+
+[[pins]]
+gol = { path = ".." }
+
+[build-profiles]
+gol       = "validation"
+gol_tests = "validation"

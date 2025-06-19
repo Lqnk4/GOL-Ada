@@ -1,0 +1,20 @@
+name = "gol"
+description = "Graphical cellular automata simulation"
+version = "0.1.0-dev"
+
+authors = ["Aaryan Ilanchelian"]
+maintainers = ["Aaryan Ilanchelian <internalbeast109@gmail.com>"]
+licenses = "MIT OR Apache-2.0 WITH LLVM-exception"
+website = ""
+tags = []
+
+executables = ["gol"]
+
+[test]
+runner = "alire"
+
+[[depends-on]]
+raylib = "~0.1.0-dev"
+
+[[pins]]
+raylib = { url='https://github.com/Fabien-Chouteau/raylib-ada.git' }
