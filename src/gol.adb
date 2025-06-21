@@ -2,18 +2,12 @@ with Raylib;                       use Raylib;
 with RaylibExtra;                  use RaylibExtra;
 with Interfaces.C;                 use Interfaces.C;
 with C_Float_Elementary_Functions; use C_Float_Elementary_Functions;
-with Render; use Render;
+with Render;                       use Render;
 
 procedure Gol is
    Screen_Width  : constant int := 840;
    Screen_Height : constant int := 600;
-   Cam           : Camera2D :=
-     (
-      --  (C_float (Screen_Width / 2), C_float (Screen_Height / 2)),
-      (0.0, 0.0),
-      (0.0, 0.0),
-      0.0,
-      1.0);
+   Cam           : Camera2D := ((0.0, 0.0), (0.0, 0.0), 0.0, 1.0);
 
    Mouse_Wheel    : C_float;
    Mouse_Position : Vector2;
@@ -35,32 +29,27 @@ begin
       end if;
 
       if Mouse_Wheel /= 0.0 then
+         Cam.offset := Mouse_Position;
+         Cam.target := GetScreenToWorld2D (Mouse_Position, Cam);
          Cam.zoom :=
-           Clamp (Exp (Log (Cam.zoom) + 0.2 * Mouse_Wheel), 0.3, 64.0);
+           Clamp (Exp (Log (Cam.zoom) + 0.2 * Mouse_Wheel), 0.27, 64.0);
       end if;
 
       BeginDrawing;
       ClearBackground (BLACK);
-
       BeginMode2D (Cam);
-
       Draw_Life_Grid (Cam);
       DrawCircle (0, 0, 10.0, GREEN);
-
       Draw_Cell ((5, 5));
       Draw_Cell ((1000, 0));
-
+      Draw_Cell (Screen_To_Cell_Coord (Mouse_Position, Cam));
       EndMode2D;
 
-
+      DrawFPS (20, 20);
       DrawTextEx
         (GetFontDefault,
-         "["
-         & C_float'Image (GetScreenToWorld2D (Mouse_Position, Cam).x)
-         & " "
-         & C_float'Image (GetScreenToWorld2D (Mouse_Position, Cam).y)
-         & "]",
-         Mouse_Position + (-44.0, -24.0),
+         Cell_Coord'Image (Screen_To_Cell_Coord (Mouse_Position, Cam)),
+         Mouse_Position + (0.0, -64.0),
          20.0,
          2.0,
          WHITE);

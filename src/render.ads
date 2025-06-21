@@ -10,6 +10,8 @@ package Render is
       y : Integer;
    end record;
 
+   function To_Cell_Coord (v : in Vector2) return Cell_Coord;
+   function Screen_To_Cell_Coord (v : in Vector2; Cam : Camera2D) return Cell_Coord;
    procedure Draw_Life_Grid (Cam : in Camera2D);
    procedure Draw_Cell (Position : in Cell_Coord);
 

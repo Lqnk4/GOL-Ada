@@ -10,7 +10,7 @@ project Gol is
 
    package Compiler is
       for Default_Switches ("Ada") use Gol_Config.Ada_Compiler_Switches
-         & ("-gnatwae", "-gnatef");
+         & ("-gnat2022", "-gnatwae", "-gnatef");
    end Compiler;
 
    package Binder is
