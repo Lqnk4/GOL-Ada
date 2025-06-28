@@ -18,7 +18,6 @@ procedure Gol is
    Mouse_Delta    : Vector2;
 
    Previous_Cells : Life := [Life'Range (1) => [Life'Range (2) => Dead]];
-   Next_Cells     : Life;
 
 begin
    SetConfigFlags
@@ -67,8 +66,7 @@ begin
       end if;
 
       if IsKeyPressed (KEY_SPACE) then
-         Next_Gen (Previous_Cells, Next_Cells);
-         Previous_Cells := Next_Cells;
+         Previous_Cells := Next_Gen (Previous_Cells);
       end if;
 
       BeginDrawing;

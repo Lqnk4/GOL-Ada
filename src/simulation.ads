@@ -1,4 +1,6 @@
-package Simulation is
+package Simulation
+  with SPARK_Mode => On
+is
    type Cell is (Dead, Alive);
    type Cell_X is range -(2**7) .. 2**7 - 1;
    type Cell_Y is range -(2**7) .. 2**7 - 1;
@@ -9,6 +11,7 @@ package Simulation is
       y : Cell_Y;
    end record;
 
-   procedure Next_Gen (Previous : in Life; Next : out Life);
+   function Next_Gen (Previous : in Life) return Life
+   with Global => null, Depends => (Next_Gen'Result => Previous);
 
 end Simulation;
